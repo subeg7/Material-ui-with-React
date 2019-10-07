@@ -4,18 +4,23 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import Cell from "./Cell";
 
-const CellLength = 50;
-const CellProps={
-  height:CellLength,
-  width:CellLength,
+
+const CellPadding=5;
+
+
+const cellShapeSize=100  ;
+const CellDimensions={
+    height:cellShapeSize,
+    width:cellShapeSize,
 }
-const TotalCellsInRow = 5;
+const CellsInGridRow = 3;
 
 export default class Grid extends Component{
     render(){
         return (
             <Stage width={window.innerWidth} height={window.innerHeight}>
               <Layer>
+                {/* <Cell position={{x:23,y:23}}/> */}
                   {_createGrid()}
               </Layer>
             </Stage>
@@ -24,12 +29,29 @@ export default class Grid extends Component{
 }
 
 function _createGrid(){
-    // let GridArray = new Array(2).fill( new Array(2).fill( 
-      
-    //   <Cell position = {{x: getXPos(),y:0}} size= {CellProps}/>
-    // ) );
-     console.log("mappedArray::"+GridArray[0][1]);
-    return GridArray[0][1];
+    let GridArray = new Array(CellsInGridRow).fill( new Array(CellsInGridRow).fill(false) );
+
+    let colId=0;
+    const mappedArray = GridArray.map((innerArray )=>{
+        let rowId=0;
+        let xPos = colId*(cellShapeSize+CellPadding)+CellPadding;
+
+
+        let mappedInnerArray = innerArray.map((cell)=>{
+        let yPos = rowId*(cellShapeSize+CellPadding)+CellPadding;
+
+            let cellId = ""+rowId+"_"+colId;
+            console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
+
+            rowId++;
+            return <Cell  key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize}/>
+        });
+        colId++;
+        return mappedInnerArray;
+    });
+
+    console.log("mappedArray::"+mappedArray);
+    return mappedArray;
 }
   
 function getXPos(){
