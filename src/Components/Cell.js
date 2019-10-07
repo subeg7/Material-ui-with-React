@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 
+
 export default class Cell extends React.Component {
     state = {
       color: 'green'
