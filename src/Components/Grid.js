@@ -8,12 +8,12 @@ import Cell from "./Cell";
 const CellPadding=5;
 
 
-const cellShapeSize=100  ;
+const cellShapeSize=50  ;
 const CellDimensions={
     height:cellShapeSize,
     width:cellShapeSize,
 }
-const CellsInGridRow = 3;
+const CellsInGridRow = 20;
 
 export default class Grid extends Component{
     render(){
@@ -41,7 +41,7 @@ function _createGrid(){
         let yPos = rowId*(cellShapeSize+CellPadding)+CellPadding;
 
             let cellId = ""+rowId+"_"+colId;
-            console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
+            // console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
 
             rowId++;
             return <Cell  key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize}/>
@@ -50,7 +50,7 @@ function _createGrid(){
         return mappedInnerArray;
     });
 
-    console.log("mappedArray::"+mappedArray);
+    // console.log("mappedArray::"+mappedArray);
     return mappedArray;
 }
   

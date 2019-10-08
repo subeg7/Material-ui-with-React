@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Grid from "./Components/Grid";
-// import { ReactComponent } from '*.svg';
-
-
-
 
 export default class App extends Component {
 
@@ -13,7 +9,12 @@ export default class App extends Component {
     console.log("rendering");
 
     return(
-      <Grid/>
+     <div>
+       <h1>  Simulator</h1>
+       <div>
+        <Grid/>
+       </div>
+     </div>
     );    
   }
 }
