@@ -4,17 +4,27 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 
 // const CellLength = 50;
-
+const Color = {
+  default:"purple",
+  active:"green"
+}
 
 export default class Cell extends React.Component {
     state = {
-      color: 'purple'
+      fillColor:Color.default
     };
-    // handleClick = () => {
-    //   this.setState({
-    //     color: Konva.Util.getRandomColor()
-    //   });
-    // };
+
+    _getColor(status){
+        this.setState()
+    }
+
+
+    handleClick = () => {
+      console.log("you clicked the cell"+this.props.cellId);
+        // color: Konva.Util.getRandomColor()
+      this.state.fillColor==Color.default?this.setState({fillColor:Color.active}):this.setState({fillColor:Color.default})
+    };
+    
     render() {
     
       return (
@@ -25,7 +35,7 @@ export default class Cell extends React.Component {
           width={this.props.cellShapeSize}
           height={this.props.cellShapeSize}
 
-          fill={this.state.color}
+          fill={this.state.fillColor}
         //   fill={Konva.Util.getRandomColor()}
 
           
@@ -33,5 +43,10 @@ export default class Cell extends React.Component {
           onClick={this.handleClick}
         />
       );
+
+
     }
+
+
+    
   }

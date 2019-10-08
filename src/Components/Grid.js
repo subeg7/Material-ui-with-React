@@ -44,7 +44,7 @@ function _createGrid(){
             // console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
 
             rowId++;
-            return <Cell  key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize}/>
+            return <Cell  cellId = {cellId}key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize} isActivated="false"/>
         });
         colId++;
         return mappedInnerArray;
