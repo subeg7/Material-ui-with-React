@@ -11,20 +11,16 @@ const Color = {
 
 export default class Cell extends React.Component {
     state = {
-      fillColor:Color.default
+      fillColor:Color.default,
+      isActive:false,
     };
-
-    _getColor(status){
-        this.setState()
-    }
-
-
+    
     handleClick = () => {
       console.log("you clicked the cell"+this.props.cellId);
         // color: Konva.Util.getRandomColor()
-      this.state.fillColor==Color.default?this.setState({fillColor:Color.active}):this.setState({fillColor:Color.default})
+      this.state.fillColor==Color.default?this.setState({fillColor:Color.active,isActive:true}):this.setState({fillColor:Color.default,isActive:false})
     };
-    
+
     render() {
     
       return (

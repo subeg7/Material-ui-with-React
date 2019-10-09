@@ -44,7 +44,7 @@ function _createGrid(){
             // console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
 
             rowId++;
-            return <Cell  cellId = {cellId}key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize} isActivated="false"/>
+            return <Cell  cellId={cellId} key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize} isActivated="false"/>
         });
         colId++;
         return mappedInnerArray;
@@ -53,8 +53,5 @@ function _createGrid(){
     // console.log("mappedArray::"+mappedArray);
     return mappedArray;
 }
-  
-function getXPos(){
-    return 100;
-}
+
   
