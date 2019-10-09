@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import Cell from "./Cell";
+import GetGridMatrix from "./../Scripts/GridMatrix";
 
 
 const CellPadding=5;
@@ -28,29 +29,19 @@ export default class Grid extends Component{
     }
 }
 
+
+
 function _createGrid(){
-    let GridArray = new Array(CellsInGridRow).fill( new Array(CellsInGridRow).fill(false) );
-
-    let colId=0;
-    const mappedArray = GridArray.map((innerArray )=>{
-        let rowId=0;
-        let xPos = colId*(cellShapeSize+CellPadding)+CellPadding;
-
-
-        let mappedInnerArray = innerArray.map((cell)=>{
-        let yPos = rowId*(cellShapeSize+CellPadding)+CellPadding;
-
-            let cellId = ""+rowId+"_"+colId;
-            // console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
-
-            rowId++;
-            return <Cell  cellId={cellId} key={cellId} position={{x:xPos,y:yPos}} cellShapeSize={cellShapeSize} isActivated="false"/>
+    
+    const mappedArray = GetGridMatrix().map((innerArray )=>{
+      
+        let mappedInnerArray = innerArray.map((cellData)=>{
+      
+            return <Cell  cellId={cellData.cellId} key={cellData.cellId} position={cellData.position} cellShapeSize={cellData.cellShapeSize} isActivated={cellData.isActivated}/>
         });
-        colId++;
         return mappedInnerArray;
     });
 
-    // console.log("mappedArray::"+mappedArray);
     return mappedArray;
 }
 
