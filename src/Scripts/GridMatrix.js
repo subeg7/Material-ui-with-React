@@ -1,4 +1,4 @@
-const CellPadding=5;
+const CellPadding=2;
 
 
 const cellShapeSize=50  ;
@@ -6,11 +6,11 @@ const CellDimensions={
     height:cellShapeSize,
     width:cellShapeSize,
 }
-const CellsInGridRow = 20;
-
-
+const CellsInGridRow = 4;
+let GridMatrixJson={matrix:[]};
 
 export default  function GetGridMatrix(){
+    console.log("Grid Matrix function is called");
 
     let EmptyGridArray = new Array(CellsInGridRow).fill( new Array(CellsInGridRow).fill(false) );
 
@@ -29,9 +29,11 @@ export default  function GetGridMatrix(){
             rowId++;
             return {
                 cellId:cellId,
+                rowId:rowId-1,
+                colId:colId,
                 position:{x:xPos,y:yPos},
                 cellShapeSize:cellShapeSize,
-                isActivated:"false",
+                isActivated:'false',
             }
         });
         colId++;
@@ -39,6 +41,16 @@ export default  function GetGridMatrix(){
     });
 
     // console.log("mappedArray::"+mappedArray);
-    return mappedArray;
-     
+    GridMatrixJson.matrix=mappedArray  ;
+    // ToggleGridMatirxCell(0,0);
+    // conso
+    // ToggleGridMatirxCell(1,1);
+    return GridMatrixJson.matrix;
+}
+
+
+export function ToggleGridMatirxCell(row,column){
+    // console.log("Cell["+row+","+column+"] is "+ GridMatrixJson.matrix[row][column].isActivated);
+    GridMatrixJson.matrix[row][column].isActivated==='false'? GridMatrixJson.matrix[row][column].isActivated='true': GridMatrixJson.matrix[row][column].isActivated='false';
+    console.log("Cell["+row+","+column+"] is set:"+ GridMatrixJson.matrix[row][column].isActivated+" after toggling");
 }
