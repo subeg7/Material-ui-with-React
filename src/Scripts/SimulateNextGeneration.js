@@ -8,7 +8,7 @@ export const SimulateNextGeneration=(currentGenMatrix)=>{
     currGenObjectArray.map((innerArray )=>{
        innerArray.map((cell)=>{
             let activeStatus = _getActiveStatusDueToNeighbours(cell);
-            console.log("_getActiveStatusDueToNeighbours of Cell["+cell.rowId+","+cell.colId+"] returned"+activeStatus);
+            // console.log("_getActiveStatusDueToNeighbours of Cell["+cell.rowId+","+cell.colId+"] returned:"+activeStatus);
             nextGenerationMatrix[cell.rowId][cell.colId].isActivated= activeStatus;
         });
     });
@@ -18,28 +18,37 @@ export const SimulateNextGeneration=(currentGenMatrix)=>{
 
 
 class Cell{
-    constructor(rowId,colId,activeStatus){
+    constructor(rowId,colId,isActivated){
         this.rowId= rowId;
         this.colId= colId;
-        this.activeStatus= activeStatus;
+        this.isActivated= isActivated;
     }
 
     getTopCellActiveStatus=()=>{
+        return "true";
     }
-    getTopLeftCell=()=>{
+    getTopLeftCellActiveStatus=()=>{
+        return "true";
     }
-    getTopRightCell=()=>{
+    getTopRightCellActiveStatus=()=>{
+        return "false";
     }
-    getLeftCell=()=>{
+    getLeftCellActiveStatus=()=>{
+        return "false";
     }
-    getRightCell=()=>{
+    getRightCellActiveStatus=()=>{
+        return "false";
     }
-    getBottomCell=()=>{
+    getBottomCellActiveStatus=()=>{
+        return "false";
     }
-    getBottomLeftCell=()=>{
+    getBottomLeftCellActiveStatus=()=>{
+        return "false";
     }
-    getBottomRightCell=()=>{
+    getBottomRightCellActiveStatus=()=>{
+        return "false";
     }
+    
 }
 
 function _createCellObjectArray(matrix){
@@ -54,20 +63,20 @@ function _createCellObjectArray(matrix){
 
 function _getActiveStatusDueToNeighbours(cell){
     let activeNeigbourCellCount = 0;
-    cell.getTopCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
-    cell.getTopLeftCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
-    cell.getTopRightCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
 
-    cell.getLeftCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
-    cell.getRightCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getTopCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+    cell.getTopLeftCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+    cell.getTopRightCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
 
-    cell.getBottomCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
-    cell.getBottomLeftCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
-    cell.getBottomRightCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getLeftCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+    cell.getRightCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+
+    cell.getBottomCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+    cell.getBottomLeftCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+    cell.getBottomRightCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
 
     let activeStatus="notSet";
-
-    if(cell.activeStatus=="true"){
+    if(cell.isActivated=="true"){
         if((activeNeigbourCellCount==2 || activeNeigbourCellCount==3)){
             activeStatus="true";
         }else{
@@ -80,6 +89,6 @@ function _getActiveStatusDueToNeighbours(cell){
             activeStatus="false";
         }
     }
-    
+    console.log(" activeNeigbourCellCount of Cell["+cell.rowId+","+cell.colId+"] ["+ cell.isActivated+"] is:"+activeNeigbourCellCount+"hence is set:"+activeStatus);
     return activeStatus;
 }

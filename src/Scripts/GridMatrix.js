@@ -6,11 +6,11 @@ const CellDimensions={
     height:cellShapeSize,
     width:cellShapeSize,
 }
-const CellsInGridRow = 4;
+const CellsInGridRow = 2;
 let GridMatrixJson={matrix:[]};
 
-export default  function GetGridMatrix(){
-    console.log("Grid Matrix function is called");
+function InitalizeGridMatrix(){
+    // console.log("Creating GridMatrix");
 
     let EmptyGridArray = new Array(CellsInGridRow).fill( new Array(CellsInGridRow).fill(false) );
 
@@ -42,9 +42,15 @@ export default  function GetGridMatrix(){
 
     // console.log("mappedArray::"+mappedArray);
     GridMatrixJson.matrix=mappedArray  ;
-    // ToggleGridMatirxCell(0,0);
-    // conso
-    // ToggleGridMatirxCell(1,1);
+}
+
+export default  function GetGridMatrix(){
+    // console.log("GetGridMatrix is called");
+    if(GridMatrixJson.matrix.length==0){
+        InitalizeGridMatrix();
+    }else{
+        // console.log("Matrix is already initialized");
+    }
     return GridMatrixJson.matrix;
 }
 

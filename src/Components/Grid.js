@@ -15,7 +15,7 @@ const CellDimensions={
 
 export default class Grid extends Component{
     render(){
-        // console.log("Rendering Grid");
+        console.log("..............Rendering Grid.............");
         return (
             <Stage width={window.innerWidth} height={window.innerHeight}>
               <Layer>
