@@ -1,24 +1,30 @@
-export const SimulateNextGeneration=(currentGeneration)=>{
-    console.log(currentGeneration);
-    const cell  = new Cell(232);
-    const topCell = cell.getTopCell();
-    const topLeftCell = cell.getTopLeftCell();
-    const topRightCell = cell.getTopRightCell();
 
-    const leftCell = cell.getLeftCell();
-    const rightCell = cell.getRightCell();
+export const SimulateNextGeneration=(currentGenMatrix)=>{
+    console.log("simulating next generation");
+    let nextGenerationMatrix = currentGenMatrix; 
 
-    const bottomCell = cell.getBottomCell();
-    const bottomLeftCell = cell.getBottomLeftCell();
-    const bottomRightCell = cell.getBottomRightCell();
-    
+    let currGenObjectArray = _createCellObjectArray(currentGenMatrix);
+
+    currGenObjectArray.map((innerArray )=>{
+       innerArray.map((cell)=>{
+            let activeStatus = _getActiveStatusDueToNeighbours(cell);
+            console.log("_getActiveStatusDueToNeighbours of Cell["+cell.rowId+","+cell.colId+"] returned"+activeStatus);
+            nextGenerationMatrix[cell.rowId][cell.colId].isActivated= activeStatus;
+        });
+    });
+    return nextGenerationMatrix;
 }
+
+
+
 class Cell{
-    constructor(id){
-        this.id= id;
+    constructor(rowId,colId,activeStatus){
+        this.rowId= rowId;
+        this.colId= colId;
+        this.activeStatus= activeStatus;
     }
 
-    getTopCell=()=>{
+    getTopCellActiveStatus=()=>{
     }
     getTopLeftCell=()=>{
     }
@@ -34,4 +40,46 @@ class Cell{
     }
     getBottomRightCell=()=>{
     }
+}
+
+function _createCellObjectArray(matrix){
+    const cellObjectArray = matrix.map((innerArray )=>{
+        let mappedInnerArray = innerArray.map((cellData)=>{
+            return new Cell(cellData.rowId,cellData.colId,cellData.isActivated);
+        });
+        return mappedInnerArray;
+    });
+    return cellObjectArray;
+}
+
+function _getActiveStatusDueToNeighbours(cell){
+    let activeNeigbourCellCount = 0;
+    cell.getTopCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getTopLeftCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getTopRightCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+
+    cell.getLeftCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getRightCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+
+    cell.getBottomCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getBottomLeftCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+    cell.getBottomRightCellActiveStatus()=="true"?activeNeigbourCellCount++:activeNeigbourCellCount+=0;
+
+    let activeStatus="notSet";
+
+    if(cell.activeStatus=="true"){
+        if((activeNeigbourCellCount==2 || activeNeigbourCellCount==3)){
+            activeStatus="true";
+        }else{
+            activeStatus="false";
+        }
+    }else{
+        if(activeNeigbourCellCount==3){
+            activeStatus="true";
+        }else{
+            activeStatus="false";
+        }
+    }
+    
+    return activeStatus;
 }

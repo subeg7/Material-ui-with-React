@@ -60,8 +60,8 @@ export default class App extends Component {
     let newMatrix = GetGridMatrix();
     // newMatrix==this.state.gridMatrix?console.log("new martix is same as old"):console.log("new martix is different than old");
     // console.log("newMartrix[0][0]"+newMatrix[0][0].isActivated);
-    SimulateNextGeneration(newMatrix);
-    this.setState(this.setState({gridMatrix:newMatrix}));
+    let nextGeneration = SimulateNextGeneration(newMatrix);
+    this.setState(this.setState({gridMatrix:nextGeneration}));
   }
 
   
