@@ -8,7 +8,7 @@ import {SimulateNextGeneration} from "./Scripts/SimulateNextGeneration";
 import GetGridMatrix from "./Scripts/GridMatrix";
 import { statement } from '@babel/template';
 
-
+const numberSuffix =["th","st","nd","rd","th","th","th","th","th","th"];
 
 const styles = makeStyles(theme => ({
   button: {
@@ -26,7 +26,9 @@ export default class App extends Component {
   // }
 
   state={
-    gridMatrix:GetGridMatrix()
+    gridMatrix:GetGridMatrix(),
+    generationCount:0,
+    simulatorTitle:"Simulator"
   }
   
   
@@ -44,7 +46,7 @@ export default class App extends Component {
           </div>
 
           <div class="col-10">
-            <h1>  Simulator</h1>
+            <h1> {this.state.simulatorTitle}</h1>
             <div><Grid gridMatrix={this.state.gridMatrix}/></div>
           </div>
 
@@ -61,7 +63,15 @@ export default class App extends Component {
     // newMatrix==this.state.gridMatrix?console.log("new martix is same as old"):console.log("new martix is different than old");
     // console.log("newMartrix[0][0]"+newMatrix[0][0].isActivated);
     let nextGeneration = SimulateNextGeneration(newMatrix);
-    this.setState(this.setState({gridMatrix:nextGeneration}));
+
+
+
+
+    //currently below code is Side Effect of this function
+    //Todo- refactor : create handleclick function with _SimulateNextGeneration && _changetitle modules
+    this.setState(this.setState({gridMatrix:nextGeneration,generationCount:++this.state.generationCount,simulatorTitle:"Generation : "+this.state.generationCount+numberSuffix[this.state.generationCount.toString().split('').pop()]}));
+
+
   }
 
   

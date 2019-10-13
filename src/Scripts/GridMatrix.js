@@ -6,7 +6,7 @@ const CellDimensions={
     height:cellShapeSize,
     width:cellShapeSize,
 }
-const CellsInGridRow = 3;
+const CellsInGridRow = 20;
 let GridMatrixJson={matrix:[]};
 
 function InitalizeGridMatrix(){
