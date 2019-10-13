@@ -8,7 +8,6 @@ export const SimulateNextGeneration=(currentGenMatrix)=>{
     currGenObjectArray.map((innerArray )=>{
        innerArray.map((cell)=>{
             let activeStatus = _getActiveStatusDueToNeighbours(cell,currGenObjectArray);
-            // console.log("_getActiveStatusDueToNeighbours of Cell["+cell.rowId+","+cell.colId+"] returned:"+activeStatus);
             nextGenerationMatrix[cell.rowId][cell.colId].isActivated= activeStatus;
         });
     });
@@ -54,66 +53,67 @@ function _getActiveStatusDueToNeighbours(cell,cellObjArr){
             activeStatus="false";
         }
     }
-    console.log(" activeNeigbourCellCount of Cell["+cell.rowId+","+cell.colId+"] ["+ cell.isActivated+"] is:"+activeNeigbourCellCount+"hence is set:"+activeStatus);
+    console.log(" activeNeigbourCellCount of Cell["+cell.rowId+","+cell.colId+"] ["+ cell.isActivated+"] is:"+activeNeigbourCellCount+" hence is set:"+activeStatus);
     return activeStatus;
 }
 
 function _countActiveNeigbours(cell,cellObjArr){
     let activeNeigbourCellCount = 0;
+    // cell.row
 
-    console.log("!!!!!!!!!!!!!");
+    // console.log("!!!!!!!!!!!!!");
     try{// top cell
-        if(cellObjArr[cell.rowId-1][cell.colId]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId][cell.colId-1].isActivated=="true") activeNeigbourCellCount+=1;
         // console.log("TopCell of  Cell:["+cell.rowId+","+cell.colId+"] is Cell:["+(cell.rowId-1)+","+cell.colId+"]");
     }catch (error){
-        console.log("No TopCell of Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No TopCell of Cell:["+cell.rowId+","+cell.colId+"]");
     }
    
     try{ // topLeft cell
-        if(cellObjArr[cell.rowId-1][cell.colId-1]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId-1][cell.colId-1].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Top-Left of Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No Top-Left of Cell:["+cell.rowId+","+cell.colId+"]");
     }
  
     try{// topRight cell
-        if(cellObjArr[cell.rowId-1][cell.colId+1]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId+1][cell.colId-1].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Top-Right of Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No Top-Right of Cell:["+cell.rowId+","+cell.colId+"]");
     }
 
     try{// direct left cell
-        if(cellObjArr[cell.rowId][cell.colId-1]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId-1][cell.colId].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Direct-Left of Cell:["+cell.rowId+","+cell.colId+"]");        
+        // console.log("No Direct-Left of Cell:["+cell.rowId+","+cell.colId+"]");        
     }
     
     try{// direct right cell
-        if(cellObjArr[cell.rowId][cell.colId+1]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId+1][cell.colId].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Direct-Right of Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No Direct-Right of Cell:["+cell.rowId+","+cell.colId+"]");
     }
    
     try{ // direct bottom cell
-        if(cellObjArr[cell.rowId+1][cell.colId]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId][cell.colId+1].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Direct-Bottom of Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No Bottom of Cell:["+cell.rowId+","+cell.colId+"]");
     }
     
     try{// bottom left cell
-        if(cellObjArr[cell.rowId+1][cell.colId-1]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId-1][cell.colId+1].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Bottom-Left for Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No Bottom-Left for Cell:["+cell.rowId+","+cell.colId+"]");
     }
 
     try{// bottom right cell
-        if(cellObjArr[cell.rowId][cell.colId+1]=="true") activeNeigbourCellCount+=1;
+        if(cellObjArr[cell.rowId+1][cell.colId+1].isActivated=="true") activeNeigbourCellCount+=1;
     }catch (error){
-        console.log("No Bottom-Right for Cell:["+cell.rowId+","+cell.colId+"]");
+        // console.log("No Bottom-Right for Cell:["+cell.rowId+","+cell.colId+"]");
     }
-    console.log("!!!!!!!!!!!!!");
+    // console.log("!!!!!!!!!!!!!>>> : activeNeigbourCellCount:"+activeNeigbourCellCount);
 
    
-    
+    // return 2;
     return activeNeigbourCellCount;
 
 }

@@ -6,7 +6,7 @@ const CellDimensions={
     height:cellShapeSize,
     width:cellShapeSize,
 }
-const CellsInGridRow = 2;
+const CellsInGridRow = 3;
 let GridMatrixJson={matrix:[]};
 
 function InitalizeGridMatrix(){
@@ -14,29 +14,29 @@ function InitalizeGridMatrix(){
 
     let EmptyGridArray = new Array(CellsInGridRow).fill( new Array(CellsInGridRow).fill(false) );
 
-    let colId=0;
+    let rowId=0;
     const mappedArray = EmptyGridArray.map((innerArray )=>{
-        let rowId=0;
-        let xPos = colId*(cellShapeSize+CellPadding)+CellPadding;
+        let colId=0;
+        let xPos = rowId*(cellShapeSize+CellPadding)+CellPadding;
 
 
         let mappedInnerArray = innerArray.map((cell)=>{
-        let yPos = rowId*(cellShapeSize+CellPadding)+CellPadding;
+        let yPos = colId*(cellShapeSize+CellPadding)+CellPadding;
 
-            let cellId = ""+rowId+"_"+colId;
+            let cellId = ""+colId+"_"+rowId;
             // console.warn("cellId::"+cellId+"  at position: ["+xPos+","+yPos+"]");
 
-            rowId++;
+            colId++;
             return {
                 cellId:cellId,
-                rowId:rowId-1,
-                colId:colId,
+                colId:colId-1,
+                rowId:rowId,
                 position:{x:xPos,y:yPos},
                 cellShapeSize:cellShapeSize,
-                isActivated:'false',
+                isActivated:"false",
             }
         });
-        colId++;
+        rowId++;
         return mappedInnerArray;
     });
 
@@ -57,6 +57,6 @@ export default  function GetGridMatrix(){
 
 export function ToggleGridMatirxCell(row,column){
     // console.log("Cell["+row+","+column+"] is "+ GridMatrixJson.matrix[row][column].isActivated);
-    GridMatrixJson.matrix[row][column].isActivated==='false'? GridMatrixJson.matrix[row][column].isActivated='true': GridMatrixJson.matrix[row][column].isActivated='false';
+    GridMatrixJson.matrix[row][column].isActivated==="false"? GridMatrixJson.matrix[row][column].isActivated="true": GridMatrixJson.matrix[row][column].isActivated="false";
     console.log("Cell["+row+","+column+"] is set:"+ GridMatrixJson.matrix[row][column].isActivated+" after toggling");
 }

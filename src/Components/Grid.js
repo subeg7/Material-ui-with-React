@@ -43,6 +43,7 @@ function _createGrid(gridMatrix){
                     isActivated={cellData.isActivated}
                     rowId={cellData.rowId}
                     colId={cellData.colId}
+                    isClicked={"false"}
                     />
         });
         return mappedInnerArray;
