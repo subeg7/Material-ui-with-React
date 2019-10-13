@@ -7,7 +7,7 @@ export const SimulateNextGeneration=(currentGenMatrix)=>{
 
     currGenObjectArray.map((innerArray )=>{
        innerArray.map((cell)=>{
-            let activeStatus = _getActiveStatusDueToNeighbours(cell);
+            let activeStatus = _getActiveStatusDueToNeighbours(cell,currGenObjectArray);
             // console.log("_getActiveStatusDueToNeighbours of Cell["+cell.rowId+","+cell.colId+"] returned:"+activeStatus);
             nextGenerationMatrix[cell.rowId][cell.colId].isActivated= activeStatus;
         });
@@ -22,33 +22,7 @@ class Cell{
         this.rowId= rowId;
         this.colId= colId;
         this.isActivated= isActivated;
-    }
-
-    getTopCellActiveStatus=()=>{
-        return "true";
-    }
-    getTopLeftCellActiveStatus=()=>{
-        return "true";
-    }
-    getTopRightCellActiveStatus=()=>{
-        return "false";
-    }
-    getLeftCellActiveStatus=()=>{
-        return "false";
-    }
-    getRightCellActiveStatus=()=>{
-        return "false";
-    }
-    getBottomCellActiveStatus=()=>{
-        return "false";
-    }
-    getBottomLeftCellActiveStatus=()=>{
-        return "false";
-    }
-    getBottomRightCellActiveStatus=()=>{
-        return "false";
-    }
-    
+    }    
 }
 
 function _createCellObjectArray(matrix){
@@ -61,19 +35,10 @@ function _createCellObjectArray(matrix){
     return cellObjectArray;
 }
 
-function _getActiveStatusDueToNeighbours(cell){
-    let activeNeigbourCellCount = 0;
-
-    cell.getTopCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-    cell.getTopLeftCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-    cell.getTopRightCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-
-    cell.getLeftCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-    cell.getRightCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-
-    cell.getBottomCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-    cell.getBottomLeftCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
-    cell.getBottomRightCellActiveStatus()=="true"?activeNeigbourCellCount+=1:activeNeigbourCellCount+=0;
+function _getActiveStatusDueToNeighbours(cell,cellObjArr){
+    let activeNeigbourCellCount = _countActiveNeigbours(cell,cellObjArr);
+    //  activeNeigbourCellCount = 2;
+    // let activeNeigbourCellCount = 2;
 
     let activeStatus="notSet";
     if(cell.isActivated=="true"){
@@ -91,4 +56,64 @@ function _getActiveStatusDueToNeighbours(cell){
     }
     console.log(" activeNeigbourCellCount of Cell["+cell.rowId+","+cell.colId+"] ["+ cell.isActivated+"] is:"+activeNeigbourCellCount+"hence is set:"+activeStatus);
     return activeStatus;
+}
+
+function _countActiveNeigbours(cell,cellObjArr){
+    let activeNeigbourCellCount = 0;
+
+    console.log("!!!!!!!!!!!!!");
+    try{// top cell
+        if(cellObjArr[cell.rowId-1][cell.colId]=="true") activeNeigbourCellCount+=1;
+        // console.log("TopCell of  Cell:["+cell.rowId+","+cell.colId+"] is Cell:["+(cell.rowId-1)+","+cell.colId+"]");
+    }catch (error){
+        console.log("No TopCell of Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+   
+    try{ // topLeft cell
+        if(cellObjArr[cell.rowId-1][cell.colId-1]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Top-Left of Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+ 
+    try{// topRight cell
+        if(cellObjArr[cell.rowId-1][cell.colId+1]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Top-Right of Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+
+    try{// direct left cell
+        if(cellObjArr[cell.rowId][cell.colId-1]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Direct-Left of Cell:["+cell.rowId+","+cell.colId+"]");        
+    }
+    
+    try{// direct right cell
+        if(cellObjArr[cell.rowId][cell.colId+1]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Direct-Right of Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+   
+    try{ // direct bottom cell
+        if(cellObjArr[cell.rowId+1][cell.colId]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Direct-Bottom of Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+    
+    try{// bottom left cell
+        if(cellObjArr[cell.rowId+1][cell.colId-1]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Bottom-Left for Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+
+    try{// bottom right cell
+        if(cellObjArr[cell.rowId][cell.colId+1]=="true") activeNeigbourCellCount+=1;
+    }catch (error){
+        console.log("No Bottom-Right for Cell:["+cell.rowId+","+cell.colId+"]");
+    }
+    console.log("!!!!!!!!!!!!!");
+
+   
+    
+    return activeNeigbourCellCount;
+
 }
